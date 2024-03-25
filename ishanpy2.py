@@ -1,7 +1,7 @@
 # copied from https://tricks.one/post/get-fooocus-gradio-api-working-for-uov/
 from gradio_client import Client
 
-client = Client("http://127.0.0.1:7865/")
+client = Client("http://localhost:7866/")
 
 # Textbox: string
 # Checkbox: bool
