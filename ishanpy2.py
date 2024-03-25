@@ -92,7 +92,7 @@ result = client.predict(
 	"",				# 'Image Prompt Image 1' Image component
 	0,				# 'Image Prompt Image 1 Stop At' Slider [0.0-1.0]
 	0,				# 'Image Prompt Image 1 Weight' Slider [0.0-2.0]
-	"ImagePrompt",	# 'Image Prompt Image 1 Type' Radio
+	"hello",	# 'Image Prompt Image 1 Type' Radio
 	"",				# 'Image Prompt Image 2' Image component
 	0,				# 'Image Prompt Image 2 Stop At' Slider [0.0-1.0]
 	0,				# 'Image Prompt Image 2 Weight' Slider [0.0-2.0]
