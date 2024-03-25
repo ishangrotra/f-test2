@@ -1,111 +1,70 @@
-# copied from https://tricks.one/post/get-fooocus-gradio-api-working-for-uov/
 from gradio_client import Client
 
-client = Client("http://127.0.0.1:7865/")
+client = Client("http://localhost:7866/", serialize=False)
+# You have to use serialize = False otherwise you get other (for me unsolvable problems)
 
-# Textbox: string
-# Checkbox: bool
-# Radio: string
-# Dropdown: string
-# Slider: float | int
-# Checkboxgroup: list[string]
-# Image: filepath or URL to image
+tmp_bild = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="
+# Some input Parameter requesting a picture, otherwise you get an error, therefore here a standard picture for those inputs
 
-result = client.predict(
-	False,	# 'Generate Image Grid for Each Batch' Checkbox
-	"",	# 'Prompt' Textbox
-	"",	# 'Negative Prompt' Textbox
-        # 'Selected Styles' Checkboxgroup
-	["Fooocus V2", "Fooocus Semi Realistic", "Fooocus Masterpiece"],
-	"Speed",	# 'Performance' Radio
-	"1280×768",	# 'Aspect Ratios' Radio
-	1,		# 'Image Number' Slider [1,32]
-	"png",	# 'Output Format' Radio
-	"0",	# 'Seed' Textbox
-        False,	# 'Read wildcards in order' Checkbox
-	2,		# 'Image Sharpness' Slider [0.0,30.0]
-	7,		#  'Guidance Scale' Slider [1.0,30.0]
-	"animaPencilXL_v100.safetensors",	# 'Base Model (SDXL only)' Dropdown
-	"None",	# 'Refiner (SDXL or SD 1.5)' Dropdown
-	0.5,	# 'Refiner Switch At' Slider [0.1,1.0]
-	True,	# 'LoRA 1 Enable' Checkbox
-	"None",	# 'LoRA 1' Dropdown
-	1,	# 'LoRA 1 Weight' Slider [-2,2]
-	True,	# 'LoRA 2 Enable' Checkbox
-	"None",	# 'LoRA 2' Dropdown
-	1,		# 'LoRA 2 Weight' Slider [-2,2]
-	True,	# 'LoRA 3 Enable' Checkbox
-	"None",	# 'LoRA 3' Dropdown
-	1,		# 'LoRA 3 Weight' Slider [-2,2]
-	True,	# 'LoRA 4 Enable' Checkbox
-	"None",	# 'LoRA 4' Dropdown
-	1,		# 'LoRA 4 Weight' Slider [-2,2]
-	True,	# 'LoRA 5 Enable' Checkbox
-	"None",	# 'LoRA 5' Dropdown component
-	1,		# 'LoRA 5 Weight' Slider [-2,2]
-	True,	#'Input Image' Checkbox
-	"uov",		# 'current tab' Textbox ["uov", "ip", "inpaint"]
-	"Vary (Subtle)",	# 'Upscale or Variation:' Radio
-	"20240322214141.jpg",			# 'Upscale or Variation' Image
-	["Left"],	# 'Outpaint Direction' Checkboxgroup
-	"",		# 'Inpaint or Outpaint' Image
-	"",		# 'Inpaint Additional Prompt' Textbox
-	"",		# 'Inpaint or Outpaint Mask Upload' Image
-	True,	# 'Developer Debug Mode: Disable Preview' Checkbox
-	True,	# 'Developer Debug Mode: Disable Intermediate Results' Checkbox
-	True,	# 'Developer Debug Mode: Disable seed increment' Checkbox
-	1.5,	# 'Developer Debug Mode: Positive ADM Guidance Scaler' Slider [0.1,3.0]
-	0.8,	# 'Developer Debug Mode: Negative ADM Guidance Scaler' Slider [0.1,3.0]
-	0.3,	# 'Developer Debug Mode: ADM Guidance End At Step' Slider [0.0,1.0]
-	7,		# 'Developer Debug Mode: CFG Mimicking from TSNR' Slider [1.0,30.0]
-	"dpmpp_2m_sde_gpu",	# 'Developer Debug Mode: Sampler' Dropdown
-	"karras",	# 'Developer Debug Mode: Scheduler' Dropdown
-	-1,	# 'Developer Debug Mode: Forced Overwrite of Sampling Step' Slider [-1,200]
-	-1,	# 'Developer Debug Mode: Forced Overwrite of Refiner Switch Step' Slider [-1,200]
-	-1,	# 'Developer Debug Mode: Forced Overwrite of Generating Width' Slider [-1,2048]
-	-1,	# 'Developer Debug Mode: Forced Overwrite of Generating Height' Slider [-1,2048]
-	-1,	# 'Developer Debug Mode: Forced Overwrite of Denoising Strength of "Vary"' Slider [-1,1.0]
-	-1,	# 'Developer Debug Mode: Forced Overwrite of Denoising Strength of "Upscale"' Slider [-1,1.0]
-	False,	# 'Developer Debug Mode: Mixing Image Prompt and Vary/Upscale' Checkbox
-	False,	# 'Developer Debug Mode: Mixing Image Prompt and Inpaint' Checkbox
-	False,	# 'Developer Debug Mode: Debug Preprocessors' Checkbox
-	False,	# 'Developer Debug Mode: Skip Preprocessors' Checkbox
-	64,		# 'Developer Debug Mode: Canny Low Threshold' Slider [1,255]
-	128,	# 'Developer Debug Mode: Canny High Threshold' Slider [1,255]
-	"joint",	# 'Developer Debug Mode: Refiner swap method' Dropdown
-	0.25,	# 'Developer Debug Mode: Softness of ControlNet' Slider [0.0,1.0]
-	False,	# 'Developer Debug Mode: FreeU Enabled' Checkbox
-	1.01,	# 'Developer Debug Mode: FreeU B1' Slider [0,2]
-	1.02,	# 'Developer Debug Mode: FreeU B2' Slider [0,2]
-	0.99,	# 'Developer Debug Mode: FreeU S1' Slider [0,4]
-	0.95,	# 'Developer Debug Mode: FreeU S2' Slider [0,4]
-	False,	# 'Developer Debug Mode: Debug Inpaint Preprocessing' Checkbox
-	False,	# 'Developer Debug Mode: Disable initial latent in inpaint' Checkbox
-	"v2.6",	# 'Developer Debug Mode: Inpaint Engine' Dropdown
-	1,		# 'Developer Debug Mode: Inpaint Denoising Strength' Slider [0.0,1.0]
-	0.618,	# 'Developer Debug Mode: Inpaint Respective Field' Slider [0.0,1.0]
-	False,	# 'Developer Debug Mode: Enable Mask Upload' Checkbox
-	False,	# 'Developer Debug Mode: Invert Mask' Checkbox
-	0,		# 'Developer Debug Mode: Mask Erode or Dilate' Slider [-64,64]
-	False,	# 'Developer Debug Mode: Save Metadata to Images' Checkbox
-	"fooocus",	# 'Metadata Scheme' Radio
-	"",				# 'Image Prompt Image 1' Image component
-	0,				# 'Image Prompt Image 1 Stop At' Slider [0.0-1.0]
-	0,				# 'Image Prompt Image 1 Weight' Slider [0.0-2.0]
-	"hello",	# 'Image Prompt Image 1 Type' Radio
-	"",				# 'Image Prompt Image 2' Image component
-	0,				# 'Image Prompt Image 2 Stop At' Slider [0.0-1.0]
-	0,				# 'Image Prompt Image 2 Weight' Slider [0.0-2.0]
-	"ImagePrompt",	# 'Image Prompt Image 2 Type' Radio
-	"",				# 'Image Prompt Image 3' Image component
-	0,				# 'Image Prompt Image 3 Stop At' Slider [0.0-1.0]
-	0,				# 'Image Prompt Image 3 Weight' Slider [0.0-2.0]
-	"ImagePrompt",	# 'Image Prompt Image 3 Type' Radio
-	"",				# 'Image Prompt Image 4' Image component
-	0,				# 'Image Prompt Image 4 Stop At' Slider [0.0-1.0]
-	0,				# 'Image Prompt Image 4 Weight' Slider [0.0-2.0]
-	"ImagePrompt",	# 'Image Prompt Image 4 Type' Radio
-	fn_index=40
-)
-print(result)
-result= client.predict(fn_index=41)
+x_model = "juggernautXL_v9Rundiffusionphoto2.safetensors"
+# My default
+
+seed = "12345"
+seed_b = True
+#Didn't checked the function with False
+
+positive = "a cat" #positive prompt
+negative = "watermark:1.1, deformed hand"
+
+#client.view_api()
+#uncomment to get an overview from all parameters
+
+def write_params():
+	result = client.predict(
+		False, positive, negative, [], "Speed", "1024×1024",
+		1, # Anzhal Bilder
+		"png",
+		seed,	# str in 'Seed' Textbox component
+		True, 2,
+		5,  #(numeric value between 1.0 and 30.0)in 'Guidance Scale' Slider component
+		x_model, # str 'Base Model (SDXL only)' Dropdown component
+		"None", 0.1, 
+		False, "None", 0 ,#Lora1
+		False, "None", 0 ,#Lora2
+		False, "None", 0 ,#Lora3
+		False, "None", 0 ,#Lora4
+		False, "None", 0 ,#Lora5
+		False, "", "Disabled", tmp_bild, ["Left"], tmp_bild, "", tmp_bild, 
+		False, # bool in 'Disable Preview' Checkbox component
+		False, # bool in 'Disable Intermediate Results' Checkbox component
+		seed_b, # bool in 'Disable seed increment' Checkbox component
+		1.5, 0.8, 0.3, 7,
+		"euler_ancestral", 
+		"karras", # str (Option from: ['normal', 'karras', 'exponential', 'sgm_uniform', 'simple', 'ddim_uniform', 'lcm', 'turbo'])
+		-1,-1,-1,-1,-1,-1,
+		False, False, False, False, 1, 1,
+		"joint", # str (Option from: ['joint', 'separate', 'vae'])
+		0.25, False, 0, 0, 0, 0, False, False, "None", 0, 0, False, False, 0,
+		False, # bool in 'Save Metadata to Images' Checkbox component
+		"fooocus", # str in 'Metadata Scheme' Radio component
+		tmp_bild, 0, 0,"ImagePrompt",
+		tmp_bild, 0, 0,"ImagePrompt",
+		tmp_bild, 0, 0,"ImagePrompt",
+		tmp_bild, 0, 0,"ImagePrompt",
+		fn_index=40
+	)
+	print(result)
+
+def create_pic():
+	result2 = client.predict(fn_index=41)
+	print(result2)
+
+#With Entrypoint 26 I asked for all known models
+result = client.predict(fn_index=26) 
+mydata = result[0]
+for model in mydata['choices']:
+	if not model.startswith("SD"): #Special for me, I have all SD models which I use for redefine in a Subfolder SD, those are ignored
+		print (model) #Print Model name
+		x_model = model # Replace default with the currenty model
+		write_params() # Set parameter
+		create_pic() # Call entrypoint 41 for creating the pic
