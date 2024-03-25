@@ -1,7 +1,7 @@
-
+# copied from https://tricks.one/post/get-fooocus-gradio-api-working-for-uov/
 from gradio_client import Client
 
-client = Client("http://localhost:7866/")
+client = Client("http://127.0.0.1:7865/")
 
 # Textbox: string
 # Checkbox: bool
@@ -96,6 +96,15 @@ result = client.predict(
 	"",				# 'Image Prompt Image 2' Image component
 	0,				# 'Image Prompt Image 2 Stop At' Slider [0.0-1.0]
 	0,				# 'Image Prompt Image 2 Weight' Slider [0.0-2.0]
+	"ImagePrompt",	# 'Image Prompt Image 2 Type' Radio
+	"",				# 'Image Prompt Image 3' Image component
+	0,				# 'Image Prompt Image 3 Stop At' Slider [0.0-1.0]
+	0,				# 'Image Prompt Image 3 Weight' Slider [0.0-2.0]
+	"ImagePrompt",	# 'Image Prompt Image 3 Type' Radio
+	"",				# 'Image Prompt Image 4' Image component
+	0,				# 'Image Prompt Image 4 Stop At' Slider [0.0-1.0]
+	0,				# 'Image Prompt Image 4 Weight' Slider [0.0-2.0]
+	"ImagePrompt",	# 'Image Prompt Image 4 Type' Radio
 	fn_index=40
 )
 print(result)
