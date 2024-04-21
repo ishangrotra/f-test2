@@ -1,6 +1,6 @@
 from gradio_client import Client
 
-client = Client("http://localhost:7866/", serialize=False)
+client = Client("http://localhost:7865/", serialize=False)
 # You have to use serialize = False otherwise you get other (for me unsolvable problems)
 
 tmp_bild = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="
